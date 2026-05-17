@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌋 Indonesia Trip 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --orange: #e76f51;
+    --cream: #fefae0;
+    --sand: #f4e2c1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: #0f1923;
+    color: #f0ece4;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #0f1923 0%, #1a3a2a 50%, #0f1923 100%);
+    padding: 60px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid #2d6a4f55;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 120%, #2d6a4f44 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-emoji { font-size: 3rem; margin-bottom: 10px; display: block; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: #f4e2c1;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .hero-sub {
+    color: #52b788;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .flight-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .flight-pill {
+    background: #1a3a2a;
+    border: 1px solid #2d6a4f;
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    color: #a8d5b5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .flight-pill span { color: #52b788; font-weight: 600; }
+
+  .group-bar {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 18px 20px;
+    background: #111820;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .group-badge {
+    background: #1a3a2a;
+    border: 1px solid #2d6a4f88;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: #a8d5b5;
+  }
+  .group-badge b { color: #52b788; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 30px 16px 60px; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #f4e2c1;
+    margin: 40px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-sub {
+    color: #52b78888;
+    font-size: 0.82rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .day-card {
+    background: #141e2a;
+    border: 1px solid #2d6a4f44;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: linear-gradient(90deg, #1a3a2a, #141e2a);
+    border-bottom: 1px solid #2d6a4f44;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-num {
+    background: #2d6a4f;
+    color: #f4e2c1;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .day-info h3 { font-size: 1rem; color: #f0ece4; font-weight: 600; }
+  .day-info p { font-size: 0.8rem; color: #52b788; margin-top: 2px; }
+  .day-toggle { margin-left: auto; color: #52b788; font-size: 1.2rem; transition: transform 0.3s; }
+  .day-card.open .day-toggle { transform: rotate(180deg); }
+  .day-body { display: none; padding: 16px 20px 20px; }
+  .day-card.open .day-body { display: block; }
+
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(#2d6a4f, #52b78844);
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; margin-bottom: 18px; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #52b788;
+    border: 2px solid #141e2a;
+  }
+  .tl-time { font-size: 0.72rem; color: #52b788; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+  .tl-text { font-size: 0.88rem; color: #c8d8c5; line-height: 1.5; }
+  .tl-note { font-size: 0.75rem; color: #e76f5199; margin-top: 3px; }
+
+  .mission-section { margin-top: 20px; }
+  .mission-title {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e76f51;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media(max-width:520px) { .mission-grid { grid-template-columns: 1fr; } }
+  .mission-card {
+    background: #1f1a14;
+    border: 1px solid #e76f5133;
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .mission-card h4 { font-size: 0.85rem; color: #e76f51; font-weight: 700; margin-bottom: 8px; }
+  .mission-card ul { list-style: none; }
+  .mission-card ul li {
+    font-size: 0.8rem; color: #c8b89a;
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+  .mission-card ul li::before { content: '→'; position: absolute; left: 0; color: #e76f5188; }
+
+  .city-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0 10px;
+  }
+  .city-divider::before, .city-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2d6a4f55, transparent);
+  }
+  .city-label {
+    background: #2d6a4f;
+    color: #f4e2c1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .prep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .prep-card {
+    background: #141e2a;
+    border: 1px solid #2d6a4f44;
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .prep-card h4 {
+    font-size: 0.78rem;
+    color: #52b788;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .prep-card ul { list-style: none; }
+  .prep-card ul li {
+    font-size: 0.83rem;
+    color: #c8d8c5;
+    padding: 5px 0 5px 18px;
+    border-bottom: 1px solid #ffffff08;
+    position: relative;
+  }
+  .prep-card ul li:last-child { border-bottom: none; }
+  .prep-card ul li::before { content: '✓'; position: absolute; left: 0; color: #52b788; font-size: 0.75rem; }
+
+  .included-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .inc-tag {
+    background: #1a3a2a;
+    border: 1px solid #2d6a4f88;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    color: #a8d5b5;
+  }
+
+  .tip-box {
+    background: linear-gradient(135deg, #1f2a1a, #141e2a);
+    border: 1px solid #52b78844;
+    border-left: 3px solid #52b788;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+    color: #c8d8c5;
+    line-height: 1.6;
+  }
+  .tip-box b { color: #52b788; }
+
+  .warn-box {
+    background: linear-gradient(135deg, #2a1a14, #141e2a);
+    border: 1px solid #e76f5144;
+    border-left: 3px solid #e76f51;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+    color: #d4b8b0;
+    line-height: 1.6;
+  }
+  .warn-box b { color: #e76f51; }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.75rem;
+    color: #2d6a4f88;
+    border-top: 1px solid #2d6a4f22;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-emoji">🌋</span>
+  <h1>INDONESIA TRIP 2026</h1>
+  <p class="hero-sub">25 July – 1 August · Jakarta & Surabaya</p>
+  <div class="flight-strip">
+    <div class="flight-pill">✈️ DMK → CGK <span>25 Jul, 17:15</span> Citilink</div>
+    <div class="flight-pill">✈️ CGK → SUB <span>28 Jul, 08:55</span> Citilink</div>
+    <div class="flight-pill">✈️ SUB → BKK <span>1 Aug, 10:00</span> Malaysia Airlines</div>
+  </div>
+</div>
+
+<div class="group-bar">
+  <div class="group-badge">🗺️ Jakarta Squad <b>6 คน</b></div>
+  <div class="group-badge">🌋 Surabaya/Bromo-Ijen <b>+3 คน = 9 คน</b></div>
+  <div class="group-badge">📅 <b>8 วัน 7 คืน</b></div>
+  <div class="group-badge">🏕️ Tour: <b>Bangdul (5D4N)</b></div>
+</div>
+
+<div class="main">
+
+  <!-- JAKARTA -->
+  <div class="section-title">🏙️ Jakarta</div>
+  <p class="section-sub">25–27 Jul · 2 วัน Chill & Explore</p>
+
+  <!-- DAY 1 -->
+  <div class="day-card open" id="d1">
+    <div class="day-header" onclick="toggle('d1')">
+      <div class="day-num">1</div>
+      <div class="day-info">
+        <h3>Arrival Day — Bangkok → Jakarta</h3>
+        <p>เสาร์ 25 Jul · DMK 17:15 → CGK 20:55 · Citilink</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">17:15</div>
+          <div class="tl-text">ออกจาก Don Mueang (DMK) · Citilink · Terminal DMK</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">20:55</div>
+          <div class="tl-text">ถึง CGK · ผ่าน Immigration + รับกระเป๋า</div>
+          <div class="tl-note">⚠️ กรอก e-VOA ก่อนขึ้นเครื่องจะเร็วกว่ามาก</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">22:00</div>
+          <div class="tl-text">Grab เข้าเมือง · แนะนำ <b>Blue Bird Taxi</b> หรือ Grab (ปลอดภัยกว่าแท็กซี่ทั่วไป)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">22:30+</div>
+          <div class="tl-text">เช็คอินโรงแรม · ตามด้วย Night Market หรือหาของกิน late night</div>
+          <div class="tl-note">💡 ย่านแนะนำ: Kemang / SCBD เปิดดึก vibe ดี</div>
+        </div>
+      </div>
+      <div class="tip-box"><b>💳 เงินสด:</b> แลกพอใช้ที่สนามบินก่อน แล้วแลกเพิ่มในเมืองได้ราคาดีกว่า — Money Changer แถว Blok M หรือ Glodok</div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card" id="d2">
+    <div class="day-header" onclick="toggle('d2')">
+      <div class="day-num">2</div>
+      <div class="day-info">
+        <h3>Jakarta Explore Day — Old Town + Modern City</h3>
+        <p>อาทิตย์ 26 Jul · Kota Tua · Monas · Rooftop</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">08:00</div>
+          <div class="tl-text">อาหารเช้า Local style — ลอง <b>Bubur Ayam</b> หรือ <b>Nasi Uduk</b></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:30</div>
+          <div class="tl-text"><b>Kota Tua (Old Batavia)</b> — ย่าน Dutch colonial สวยมาก content friendly สุดๆ ลอง Museum Fatahillah + Café Batavia</div>
+          <div class="tl-note">💡 ก่อน 10 โมงคนน้อย ได้ภาพสะอาดกว่า</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:30</div>
+          <div class="tl-text"><b>Sunda Kelapa Harbor</b> — ท่าเรือโบราณ เรือไม้ดั้งเดิม vibe ต่างโลก</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00</div>
+          <div class="tl-text">มื้อเที่ยง — <b>Soto Betawi</b> หรือ <b>Gado-gado</b> authentic</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00</div>
+          <div class="tl-text"><b>Grand Indonesia / SCBD</b> — ส่วน modern Jakarta ช้อปปิ้ง พักแอร์ ถ่ายตึกสูง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00</div>
+          <div class="tl-text"><b>Monas</b> — ดู Golden Hour รอบๆ Monument</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">20:00</div>
+          <div class="tl-text">มื้อเย็น + Rooftop Bar — แนะนำ <b>Skye Bar</b> (BCA Tower) หรือ <b>UNION Jakarta</b></div>
+        </div>
+      </div>
+
+      <div class="mission-section">
+        <div class="mission-title">🎯 MISSION MODE — แบ่ง 2 ทีม แข่งกัน!</div>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <h4>🔴 Team Explorer — Kota Tua</h4>
+            <ul>
+              <li>ถ่าย Kota Tua 5 style ต่างกัน</li>
+              <li>หา street food แปลกที่สุดในตลาด</li>
+              <li>สัมภาษณ์ local 1 คน (vlog-style)</li>
+              <li>เก็บ "วิวที่ไม่มีนักท่องเที่ยว"</li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h4>🔵 Team Modern — SCBD/Monas</h4>
+            <ul>
+              <li>ถ่าย Jakarta Skyline ครบ 3 มุม</li>
+              <li>หา aesthetic café โดยไม่ต้อง Google</li>
+              <li>ทำ Jakarta vs Bangkok comparison reel</li>
+              <li>ลองนั่ง MRT / Transjakarta</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tip-box" style="margin-top:10px">🏆 <b>ตัดสิน:</b> เย็นนั้นโหวตกันว่าทีมไหน content ดีกว่า — ทีมแพ้เลี้ยงกาแฟ!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card" id="d3">
+    <div class="day-header" onclick="toggle('d3')">
+      <div class="day-num">3</div>
+      <div class="day-info">
+        <h3>Chill Day — Kemang Café + Pack กระเป๋า</h3>
+        <p>จันทร์ 27 Jul · ก่อนบิน 08:55 พรุ่งนี้</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">09:00</div>
+          <div class="tl-text"><b>Menteng / Kemang</b> — brunch + café hop วันจันทร์คนน้อย เหมาะถ่ายรูปมาก</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00</div>
+          <div class="tl-text"><b>Taman Suropati</b> — สวนสาธารณะ local vibe ชิวๆ</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00</div>
+          <div class="tl-text">มื้อเที่ยง <b>Nasi Goreng</b> หรือ Warung local</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00</div>
+          <div class="tl-text">กลับโรงแรม · <b>Pack กระเป๋า</b> เตรียมบินพรุ่งนี้ตี 5</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00</div>
+          <div class="tl-text">มื้อเย็น Jakarta last night — <b>Seafood Jalan Bahari</b> หรือ Korean BBQ Halal</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">21:00</div>
+          <div class="tl-text">นอนหัวค่ำ ⚠️ ตี 5 ต้องออกไปสนามบิน เที่ยวบิน 08:55</div>
+        </div>
+      </div>
+      <div class="mission-section">
+        <div class="mission-title">🎯 MISSION — Final Jakarta Day</div>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <h4>☕ Café Roulette</h4>
+            <ul>
+              <li>ห้าม Google แค่เดินเข้าซอย</li>
+              <li>หา café ที่ไม่เคยเห็นใน feed</li>
+              <li>Order อะไรก็ได้ที่ไม่รู้จัก</li>
+              <li>Post story ทันทีพร้อม rate</li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h4>🛍️ Local Market Hunt</h4>
+            <ul>
+              <li>ซื้อของฝาก 6 คน ≤ 200,000 Rp</li>
+              <li>ต้อง negotiate ราคาได้</li>
+              <li>ถ่าย process ทั้งหมดเป็น reel</li>
+              <li>ของที่ซื้อต้องใช้ได้จริง</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SURABAYA DIVIDER -->
+  <div class="city-divider">
+    <div class="city-label">✈️ CGK → SUB · บินเช้า 08:55 · เจอทีมเพิ่ม 3 คน!</div>
+  </div>
+
+  <div class="section-title">🌋 Bromo × Kawah Ijen</div>
+  <p class="section-sub">28 Jul – 1 Aug · Bangdul Tour · 5 วัน 4 คืน · รวม 9 คน</p>
+
+  <!-- DAY 4 -->
+  <div class="day-card" id="d4">
+    <div class="day-header" onclick="toggle('d4')">
+      <div class="day-num">4</div>
+      <div class="day-info">
+        <h3>Surabaya Arrival + Madakaripura Waterfall</h3>
+        <p>อังคาร 28 Jul · CGK 08:55 → SUB 10:30 · รวม 9 คน 🎉</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">05:00</div>
+          <div class="tl-text">ออกจากโรงแรม Jakarta ไปสนามบิน CGK</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:55</div>
+          <div class="tl-text">เที่ยวบิน CGK → SUB · Citilink · Terminal CGK Soekarno-Hatta</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:30</div>
+          <div class="tl-text">ถึง Juanda Airport Surabaya 🎉 พบทีมอีก 3 คน รวม <b>9 คน</b></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:40</div>
+          <div class="tl-text">ทัวร์ออกเดินทาง + แวะมื้อเที่ยงระหว่างทาง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:30</div>
+          <div class="tl-text"><b>น้ำตก Madakaripura</b> — น้ำตกสูงอันดับ 2 ของอินโดนีเซีย เดินลุยน้ำเข้าไป เปียกแน่นอน 💦</div>
+          <div class="tl-note">👟 ต้องใส่รองเท้าแตะ เปลี่ยนชุดก่อนเข้า</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">17:00</div>
+          <div class="tl-text">เดินทางต่อไป Bromo + แวะมื้อเย็นระหว่างทาง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">19:00</div>
+          <div class="tl-text">เช็คอินที่พัก Bromo · พักผ่อน <b>⚠️ ตี 2 ต้องตื่น!</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card" id="d5">
+    <div class="day-header" onclick="toggle('d5')">
+      <div class="day-num">5</div>
+      <div class="day-info">
+        <h3>Sunrise Bromo 🌅 + ปล่องภูเขาไฟ</h3>
+        <p>พุธ 29 Jul · Jeep ride ตี 3 · Lumajang</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">02:00</div>
+          <div class="tl-text">ตื่นนอน ใส่เสื้อหนาวให้ครบ เตรียมกล้อง + power bank</div>
+          <div class="tl-note">🌡️ อุณหภูมิ ตี 2-4 อาจเย็นถึง 5–10°C</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">03:00</div>
+          <div class="tl-text">ขึ้น <b>Jeep 4WD</b> ไปจุดชมวิว Sunrise Point (King Kong Hill)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">05:00</div>
+          <div class="tl-text">☀️ ดู <b>Sunrise Bromo</b> — จิบกาแฟร้อน ถ่ายภาพกับทะเลหมอก</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">07:30</div>
+          <div class="tl-text">ถ่ายรูปที่ <b>Gunung Widodaren</b> — Sea of Sand panoramic view</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00</div>
+          <div class="tl-text">ลงไปที่ <b>ปล่องภูเขาไฟ Bromo</b> — ขึ้นม้าได้ (300,000 Rp/คน) หรือเดิน ~200 step</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00</div>
+          <div class="tl-text">กลับที่พัก เช็คเอาท์</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00</div>
+          <div class="tl-text">เดินทางไป Lumajang · มื้อเที่ยงระหว่างทาง</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00</div>
+          <div class="tl-text"><b>น้ำตก Madakaripura รอบ 2</b> (สำหรับคนที่ยังไม่ได้ไปวันแรก)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00</div>
+          <div class="tl-text">ถึงที่พัก Lumajang พักผ่อน</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card" id="d6">
+    <div class="day-header" onclick="toggle('d6')">
+      <div class="day-num">6</div>
+      <div class="day-info">
+        <h3>Tumpak Sewu + Semeru View 💧</h3>
+        <p>พฤหัส 30 Jul · น้ำตก 1,000 สาย · → Banyuwangi</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">05:00</div>
+          <div class="tl-text">ออกเดินทางไป <b>Teras Semeru</b> — จุดชม Gunung Semeru แบบ panoramic</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00</div>
+          <div class="tl-text"><b>น้ำตก Tumpak Sewu</b> — น้ำตก 1,000 สาย ที่สวยที่สุดในอินโดนีเซีย! ทางเดินลงชัน แต่ worth it 100%</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00</div>
+          <div class="tl-text">กลับที่พัก เช็คเอาท์</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00</div>
+          <div class="tl-text">เดินทางต่อไป <b>Banyuwangi</b> · มื้อเที่ยงระหว่างทาง (~4-5 ชม.)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:30</div>
+          <div class="tl-text">เช็คอินที่พัก Banyuwangi พักผ่อน <b>⚠️ ตี 1:30 ต้องตื่น!</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day-card" id="d7">
+    <div class="day-header" onclick="toggle('d7')">
+      <div class="day-num">7</div>
+      <div class="day-info">
+        <h3>Kawah Ijen — Blue Fire 🔥💙</h3>
+        <p>ศุกร์ 31 Jul · ไฮไลท์สุดของทริป! → Surabaya</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">01:30</div>
+          <div class="tl-text">รวมตัวออกเดินทางไป Kawah Ijen</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">02:00</div>
+          <div class="tl-text">เริ่ม <b>เดินขึ้นเขา Ijen</b> ใช้เวลา ~2 ชม. · มีรถลาก 1,500,000 Rp ไปกลับ</div>
+          <div class="tl-note">👟 ทางขึ้นชัน ต้องใส่รองเท้า hiking</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">04:00</div>
+          <div class="tl-text">🔥💙 ชม <b>Blue Fire</b> — ไฟสีฟ้าจากก๊าซกำมะถัน ปรากฏการณ์หายากในโลก!</div>
+          <div class="tl-note">😷 ต้องใส่หน้ากากกันแก๊สตลอด (ทัวร์จัดให้)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">05:00+</div>
+          <div class="tl-text">ชม <b>Crater Lake Ijen</b> — ทะเลสาบกรดสีฟ้า ใหญ่ที่สุดในโลก</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">07:00</div>
+          <div class="tl-text">เริ่มเดินลงจากเขา</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:30</div>
+          <div class="tl-text">กลับที่พัก เช็คเอาท์</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:00</div>
+          <div class="tl-text">มื้อเที่ยงระหว่างทาง เดินทางไป Surabaya</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00</div>
+          <div class="tl-text">เช็คอิน Surabaya · มื้อเย็น Celebrate ทริปก่อนกลับ 🎉</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 8 -->
+  <div class="day-card" id="d8">
+    <div class="day-header" onclick="toggle('d8')">
+      <div class="day-num">8</div>
+      <div class="day-info">
+        <h3>กลับบ้าน ✈️</h3>
+        <p>เสาร์ 1 Aug · SUB 10:00 → BKK 17:20 · Malaysia Airlines (1 stop)</p>
+      </div>
+      <div class="day-toggle">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00</div>
+          <div class="tl-text">เช้าสุดท้ายที่ Surabaya · มื้อเช้า + เก็บกระเป๋า</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:00</div>
+          <div class="tl-text">ทัวร์จัดรถส่งสนามบิน Juanda · เช็คอิน Malaysia Airlines</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00</div>
+          <div class="tl-text">เที่ยวบิน SUB → BKK (1 stop)</div>
+          <div class="tl-note">⚠️ มี 1 stop เช็คเวลา transit ก่อนบิน</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">17:20</div>
+          <div class="tl-text">ถึง Bangkok (BKK) Suvarnabhumi 🏠 จบทริป!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREPARATION -->
+  <div class="city-divider">
+    <div class="city-label">🎒 เตรียมตัวก่อนออกเดินทาง</div>
+  </div>
+  <div class="section-title">📋 Preparation Guide</div>
+
+  <div class="prep-grid">
+    <div class="prep-card">
+      <h4>🧳 สิ่งที่ต้องแพ็ค</h4>
+      <ul>
+        <li>Jacket / เสื้อกันหนาวหนา (Bromo & Ijen หนาวมาก)</li>
+        <li>ถุงมือ + หมวกไหมพรม (ยืมทัวร์ได้)</li>
+        <li>รองเท้า hiking / trail</li>
+        <li>รองเท้าแตะสำหรับลุยน้ำตก</li>
+        <li>ถุงกันน้ำ / ซิปล็อก</li>
+        <li>ปลั๊กแปลง Type C (อินโดนีเซีย)</li>
+        <li>Power bank (อากาศหนาวแบตหมดเร็ว)</li>
+        <li>กาแฟซอง / ขนม สำหรับขึ้นเขาตี 2</li>
+      </ul>
+    </div>
+    <div class="prep-card">
+      <h4>💊 ยาและ Health</h4>
+      <ul>
+        <li>ยาแก้ปวด Paracetamol</li>
+        <li>ยาท้องเสีย / ยาถ่าย</li>
+        <li>ยาแก้แพ้ (กำมะถัน Ijen)</li>
+        <li>Sunscreen SPF50+ (แดดอินโดแรงมาก)</li>
+        <li>ยาหม่อง / สเปรย์กันยุง</li>
+        <li>Electrolyte / เกลือแร่</li>
+        <li>ประกันการเดินทาง <b>(สำคัญมาก!)</b></li>
+      </ul>
+    </div>
+    <div class="prep-card">
+      <h4>📱 App ที่ต้องโหลด</h4>
+      <ul>
+        <li>Grab (แท็กซี่ + delivery)</li>
+        <li>Google Translate (offline Thai-ID)</li>
+        <li>Google Maps (download offline)</li>
+        <li>XE Currency (แปลงเงิน)</li>
+        <li>Wise (โอนเงิน + rate ดี)</li>
+      </ul>
+    </div>
+    <div class="prep-card">
+      <h4>📄 เอกสาร</h4>
+      <ul>
+        <li>Passport อายุเหลือ 6 เดือน+</li>
+        <li><b>e-VOA</b> กรอกออนไลน์ก่อนบิน</li>
+        <li>ตั๋วเครื่องบิน 3 เที่ยว (print)</li>
+        <li>Booking ทัวร์ Bangdul</li>
+        <li>ที่อยู่โรงแรม Jakarta + Surabaya</li>
+      </ul>
+    </div>
+    <div class="prep-card">
+      <h4>💰 เงินและค่าใช้จ่าย</h4>
+      <ul>
+        <li>1 THB ≈ 430–450 IDR</li>
+        <li>ม้า Bromo: 300,000 Rp/คน (optional)</li>
+        <li>รถลาก Ijen: 1,500,000 Rp ไปกลับ</li>
+        <li>แลกเงิน Money Changer ในเมืองดีกว่าสนามบิน</li>
+        <li>Grab card แนะนำกว่า cash ใน Jakarta</li>
+      </ul>
+    </div>
+    <div class="prep-card">
+      <h4>📷 Content & Camera</h4>
+      <ul>
+        <li>SD card เยอะๆ Bromo + Ijen เก็บเยอะ</li>
+        <li>Waterproof case สำหรับน้ำตก</li>
+        <li>Wide lens — Bromo Sea of Sand สวยมาก</li>
+        <li>ถ่าย Hyperlapse Sunrise Bromo</li>
+        <li>Blue Fire ต้อง long exposure ISO สูง</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- INCLUDED IN TOUR -->
+  <div class="section-title" style="margin-top:30px">✅ รวมในทัวร์ Bangdul</div>
+  <div class="included-list">
+    <div class="inc-tag">🚗 รถ + คนขับตลอดทริป</div>
+    <div class="inc-tag">⛽ น้ำมัน + ทางด่วน</div>
+    <div class="inc-tag">🏨 ที่พัก 4 คืน</div>
+    <div class="inc-tag">🎟️ ค่าเข้าชมทุกที่</div>
+    <div class="inc-tag">🚙 รถจิ๊ปโบรโม</div>
+    <div class="inc-tag">😷 หน้ากากกันแก๊ส Ijen</div>
+    <div class="inc-tag">🔦 ไฟฉายคาดหัว Ijen</div>
+    <div class="inc-tag">🩺 ใบรับรองแพทย์</div>
+  </div>
+
+  <!-- WARNINGS -->
+  <div class="section-title" style="margin-top:30px">⚠️ Safety & Tips</div>
+
+  <div class="warn-box">
+    <b>🌋 Kawah Ijen — Safety สำคัญมาก:</b> พื้นที่ภูเขาไฟจริง ต้องใส่หน้ากากกันแก๊สตลอดเวลาที่อยู่ใกล้ปล่อง ห้ามถอดเด็ดขาด แก๊สกำมะถันอันตราย ถ้าหายใจไม่ออกต้องบอก guide ทันที
+  </div>
+  <div class="warn-box">
+    <b>❄️ อากาศหนาว Bromo & Ijen:</b> ตอนตี 2–5 หนาวมากถึง 5°C เตรียมเสื้อกันหนาว ถุงมือ หมวก ครบ อย่าประมาท ถ้าไม่เคยชิน body จะ shock
+  </div>
+  <div class="tip-box">
+    <b>💡 นอนก่อน = เที่ยวได้สนุก:</b> วัน Bromo และ Ijen ต้องตื่นตี 2 ทั้งคู่ ถ้าไม่นอนก่อนจะทรมานมาก แนะนำ sleep ก่อน 21:00 ทั้ง 2 คืน
+  </div>
+  <div class="tip-box">
+    <b>💡 ชุดน้ำตก:</b> Madakaripura และ Tumpak Sewu เปียกทั้งตัว เตรียมชุดแยก + ถุงพลาสติก ห้ามเอากล้อง mirrorless / DSLR ลงไปโดยไม่มี waterproof case
+  </div>
+
+</div>
+
+<footer>✈️ Indonesia Trip 2026 · 25 Jul – 1 Aug · Jakarta × Surabaya · Have the best trip! 🌋💙</footer>
+
+<script>
+  function toggle(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
